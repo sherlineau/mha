@@ -1,24 +1,25 @@
 const express = require('express');
+const app = express();
 const cors = require('cors');
+require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
+module.exports = DATABASE = 'myheroacademia_db'; //mongoose database name 
 
-const app = express();
-const port = 8000;
-module.exports = DATABASE = 'myheroacademia_db';
-
-// configs
+// config- Mongoose
 require('./config/mongoose.config');
-require('dotenv').config();
-app.use(cookieParser());
-app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
+
+//config - Express
+app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 // TODO change routes to correct file name
 // routes
-require('./routes/test.routes')(app);
+require('./routes/mha_character.routes')(app);
 require('./routes/user.routes')(app);
 
 // Listen
-app.listen(port, () => { console.log(`Listening at Port ${port}`) });
+const PORT = process.env.PORT;
+app.listen(PORT, () => { console.log(`Listening at PORT ${PORT}`) });
