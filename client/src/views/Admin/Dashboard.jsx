@@ -51,7 +51,7 @@ const AdminDashboard = () => {
       <Container className='d-flex justify-content-center m-2'>
         <Button variant='success' onClick={e=> navigate('/admin/new')}>Add a new character to the database</Button>
       </Container>
-      <Table striped borderless size="sm" style={{ textAlign: "center" }}>
+      <Table striped borderless size="lg" style={{ textAlign: "center" }}>
         <thead>
           <tr>
             <td>Name</td>

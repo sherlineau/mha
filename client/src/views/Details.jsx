@@ -32,7 +32,7 @@ const Details = () => {
             </Row>
             <Row>
               <Col>
-                <img src={character.image} alt={character.name} style={{ objectFit: "cover", width: "500px" }} />
+                <img src={character.image} alt={character.name} style={{ objectFit: "cover", width: "700px" }} />
                 <p className='p-3' style={{ textAlign: "justify" }}>{character.description}</p>
               </Col>
               <Col className='p-3'>

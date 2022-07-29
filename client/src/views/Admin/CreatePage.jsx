@@ -12,6 +12,7 @@ const CreatePage = () => {
   const createCharacter = (character) => {
     axios.post(`http://localhost:8000/api/people`, character, { withCredentials: true })
       .then((res => navigate('/admin/dashboard')))
+      .catch(err => navigate('/'))
   }
 
   return (

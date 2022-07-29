@@ -11,12 +11,28 @@ import InputGroup from 'react-bootstrap/InputGroup';
 const Main = () => {
   const navigate = useNavigate()
   const [characters, setCharacters] = useState(null)
+  const [filtered, setFiltered] = useState(null)
 
   // load all characters
   useEffect(() => {
     axios.get(`http://localhost:8000/api/people`, { withCredentials: false })
-      .then(res => setCharacters(res.data))
+      .then(res => {
+        setCharacters(res.data)
+        setFiltered(res.data)
+      })
   }, [])
+
+  const updateList = (filter) => {
+    if (filter === "All") {
+      setFiltered(characters)
+    } else if( filter === "Hero" || filter === "Villian" ) {
+      const filteredList = characters.filter((character) => character.affiliation.includes(filter))
+      setFiltered(filteredList)
+    } else {
+      const filteredList = characters.filter((character) => character.alias.toLowerCase().includes(filter.toLowerCase()))
+      setFiltered(filteredList)
+    }
+  }
 
   return (
     <Container className='m-5 mx-auto '>
@@ -25,32 +41,33 @@ const Main = () => {
         <Button onClick={e => navigate('/login')}>Admin Login</Button>
       </Container>
 
-      {/* TODO add functionality for search/filter Feature  */}
-      <InputGroup className="mb-3 mx-auto" style={{ width: "500px" }}>
-        <Form.Control placeholder='Search'
-        />
-        <Form.Select size='sm'>
-          <option hidden>Filter By</option>
-          <option>Heroes</option>
-          <option>Villians</option>
+      {/* TODO add functionality for search feature  */}
+      <InputGroup className="mb-3 mx-auto" style={{ width: "750px" }}>
+        <InputGroup.Text >Search By Alias</InputGroup.Text>
+        <Form.Control placeholder='Search' onChange={e => { updateList(e.target.value) }}/>
+        <InputGroup.Text>Filter By</InputGroup.Text>
+        <Form.Select size='sm' onChange={e => { updateList(e.target.value) }}>
+          <option value="All" >All</option>
+          <option value="Hero">Heroes</option>
+          <option value="Villian">Villians</option>
         </Form.Select>
       </InputGroup>
 
-      <Table striped borderless size="sm" style={{ textAlign: "center" }}>
+      <Table striped borderless size="lg" style={{ textAlign: "center" }}>
         <thead className='display-6'>
           <tr>
-            <td>Name</td>
-            <td>Alias</td>
+            <td>Real Name</td>
+            <td>Hero/Villian Name</td>
             <td>Affiliation</td>
           </tr>
         </thead>
         <tbody>
           {/* maps character list by alpha order */}
           {
-            characters && characters.sort((a, b) => (a.name > b.name ? 1 : -1)).map((character, i) => (
+            characters && filtered && filtered.sort((a, b) => (a.name > b.name ? 1 : -1)).map((character, i) => (
               <tr key={i}>
-                <Link to={`/people/${character._id}`} style={{ display: "block" }}>{character.name}</Link>
-                <td>{character.alias}</td>
+                <td>{character.name}</td>
+                <Link to={`/people/${character._id}`} style={{ display: "block" }}>{character.alias}</Link>
                 <td>{character.affiliation}</td>
               </tr>
             ))
