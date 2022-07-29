@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import logo from '../assets/My-Hero-Academia-Logo-500x281.png'
+import Table from 'react-bootstrap/Table';
+import Container from 'react-bootstrap/Container'
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import InputGroup from 'react-bootstrap/InputGroup';
 
 const Main = () => {
+  const navigate = useNavigate()
   const [characters, setCharacters] = useState(null)
 
   // load all characters
@@ -13,13 +19,24 @@ const Main = () => {
   }, [])
 
   return (
-    <div className='container m-5 mx-auto '>
-      <div className='d-flex justify-content-between align-items-center'>
+    <Container className='m-5 mx-auto '>
+      <Container className='d-flex justify-content-between align-items-center'>
         <h1 className='display-5'><img src={logo} style={{ width: "180px" }} alt="My Hero Academia Logo" /> My Hero Academia</h1>
-        <Link to='/login' className='btn btn-success btn-md'>Login</Link>
-      </div>
+        <Button onClick={e => navigate('/login')}>Admin Login</Button>
+      </Container>
 
-      <table className='table table-striped table-borderless' style={{ textAlign: "center" }}>
+      {/* TODO add functionality for search/filter Feature */}
+      <InputGroup className="mb-3 mx-auto" style={{width: "500px"}}> 
+        <Form.Control placeholder='Search'
+        />
+        <Form.Select size='sm'>
+          <option hidden>Filter By</option>
+          <option>Heroes</option>
+          <option>Villians</option>
+        </Form.Select>
+      </InputGroup>
+
+      <Table striped borderless size="sm" style={{ textAlign: "center" }}>
         <thead className='display-6'>
           <tr>
             <td>Name</td>
@@ -28,7 +45,8 @@ const Main = () => {
           </tr>
         </thead>
         <tbody>
-          {characters && characters.map((character, i) => (
+          {/* maps character list by alpha order */}
+          {characters && characters.sort((a, b) => (a.name > b.name ? 1 : -1)).map((character, i) => (
             <tr key={i}>
               <Link to={`/people/${character._id}`} style={{ display: "block" }}>{character.name}</Link>
               <td>{character.alias}</td>
@@ -37,8 +55,8 @@ const Main = () => {
           ))
           }
         </tbody>
-      </table>
-    </div>
+      </Table>
+    </Container>
 
   )
 }

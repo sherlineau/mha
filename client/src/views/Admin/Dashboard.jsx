@@ -3,7 +3,10 @@ import axios from "axios"
 import { useNavigate, Link } from 'react-router-dom'
 import logo from '../../assets/My-Hero-Academia-Logo-500x281.png'
 import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Modal from 'react-bootstrap/Modal';
+import Table from 'react-bootstrap/Table';
+import Container from 'react-bootstrap/Container'
 
 const AdminDashboard = () => {
   const [characters, setCharacters] = useState(null)
@@ -40,15 +43,15 @@ const AdminDashboard = () => {
   };
 
   return (
-    <div className='container m-5 mx-auto'>
-      <div className='d-flex justify-content-between align-items-center'>
+    <Container className='m-5 mx-auto'>
+      <Container className='d-flex justify-content-between align-items-center'>
         <h1 className='display-5'><img src={logo} style={{ width: "180px" }} alt="My Hero Academia Logo" /> My Hero Academia</h1>
-        <button onClick={logoutHandler} className='btn btn-danger btn-md'>Logout</button>
-      </div>
-      <div className='d-flex justify-content-center m-2'>
-        <Link to='/admin/new' className='btn btn-success' >Add a new character to the database</Link>
-      </div>
-      <table className='table'>
+        <Button variant='danger' onClick={logoutHandler}>Logout</Button>
+      </Container>
+      <Container className='d-flex justify-content-center m-2'>
+        <Button variant='success' onClick={e=> navigate('/admin/new')}>Add a new character to the database</Button>
+      </Container>
+      <Table striped borderless size="sm" style={{ textAlign: "center" }}>
         <thead>
           <tr>
             <td>Name</td>
@@ -58,16 +61,18 @@ const AdminDashboard = () => {
           </tr>
         </thead>
         <tbody>
-          {characters && characters.map((character, i) => (
+          {characters && characters.sort((a, b) => (a.name > b.name ? 1 : -1)).map((character, i) => (
             <tr key={i}>
               <td>{character.name}</td>
               <td>{character.alias}</td>
               <td>{character._id}</td>
               <td>
-                <Link to={`/admin/${character._id}`} className='btn btn-primary'> Edit </Link>
-                <Button variant="danger" onClick={handleShow}>
-                  Delete
-                </Button>
+                <ButtonGroup>
+                  <Button variant='primary' onClick={e => navigate(`/admin/${character._id}`)}>Edit</Button>
+                  <Button variant="danger" onClick={handleShow}>
+                    Delete
+                  </Button>
+                </ButtonGroup>
 
                 <Modal show={show} onHide={handleClose}>
                   <Modal.Header closeButton>
@@ -86,15 +91,13 @@ const AdminDashboard = () => {
                     </Button>
                   </Modal.Footer>
                 </Modal>
-
-
               </td>
             </tr>
           ))
           }
         </tbody>
-      </table>
-    </div >
+      </Table>
+    </Container >
   )
 }
 

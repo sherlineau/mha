@@ -5,7 +5,6 @@ import Details from "./views/Details";
 import AdminDashboard from "./views/Admin/Dashboard";
 import CreatePage from "./views/Admin/CreatePage";
 import UpdatePage from "./views/Admin/UpdatePage";
-import ErrorPage from "./views/ErrorPage";
 
 function App() {
   return (
@@ -17,7 +16,6 @@ function App() {
         <Route path='/admin/dashboard' element={<AdminDashboard/>} />
         <Route path='/admin/new' element={<CreatePage/>} />
         <Route path='/admin/:id' element={<UpdatePage/>} />
-        <Route path='/error' element={<ErrorPage/>} />
       </Routes>
     </div>
   );
