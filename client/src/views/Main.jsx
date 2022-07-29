@@ -25,8 +25,8 @@ const Main = () => {
         <Button onClick={e => navigate('/login')}>Admin Login</Button>
       </Container>
 
-      {/* TODO add functionality for search/filter Feature */}
-      <InputGroup className="mb-3 mx-auto" style={{width: "500px"}}> 
+      {/* TODO add functionality for search/filter Feature  */}
+      <InputGroup className="mb-3 mx-auto" style={{ width: "500px" }}>
         <Form.Control placeholder='Search'
         />
         <Form.Select size='sm'>
@@ -46,13 +46,14 @@ const Main = () => {
         </thead>
         <tbody>
           {/* maps character list by alpha order */}
-          {characters && characters.sort((a, b) => (a.name > b.name ? 1 : -1)).map((character, i) => (
-            <tr key={i}>
-              <Link to={`/people/${character._id}`} style={{ display: "block" }}>{character.name}</Link>
-              <td>{character.alias}</td>
-              <td>{character.affiliation}</td>
-            </tr>
-          ))
+          {
+            characters && characters.sort((a, b) => (a.name > b.name ? 1 : -1)).map((character, i) => (
+              <tr key={i}>
+                <Link to={`/people/${character._id}`} style={{ display: "block" }}>{character.name}</Link>
+                <td>{character.alias}</td>
+                <td>{character.affiliation}</td>
+              </tr>
+            ))
           }
         </tbody>
       </Table>

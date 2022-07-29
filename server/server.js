@@ -15,7 +15,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// TODO change routes to correct file name
 // routes
 require('./routes/mha_character.routes')(app);
 require('./routes/user.routes')(app);

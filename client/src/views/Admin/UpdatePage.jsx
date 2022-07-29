@@ -8,7 +8,7 @@ import Container from 'react-bootstrap/Container'
 const UpdatePage = (props) => {
   const navigate = useNavigate()
   const { id } = useParams()
-  const [character, setCharacter] = useState()
+  const [character, setCharacter] = useState() 
 
   // get a character on load using id from params
   useEffect(() => {

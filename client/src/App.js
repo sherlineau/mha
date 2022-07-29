@@ -1,4 +1,4 @@
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Main from "./views/Main";
 import Login from "./views/Login";
 import Details from "./views/Details";
@@ -8,7 +8,7 @@ import UpdatePage from "./views/Admin/UpdatePage";
 
 function App() {
   return (
-    <div >
+    <>
       <Routes>
         <Route path='/' element={<Main />} />
         <Route path='/login' element={<Login/>} />
@@ -17,7 +17,7 @@ function App() {
         <Route path='/admin/new' element={<CreatePage/>} />
         <Route path='/admin/:id' element={<UpdatePage/>} />
       </Routes>
-    </div>
+    </>
   );
 }
 

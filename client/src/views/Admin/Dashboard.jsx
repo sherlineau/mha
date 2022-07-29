@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from "axios"
-import { useNavigate, Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import logo from '../../assets/My-Hero-Academia-Logo-500x281.png'
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
@@ -17,7 +17,7 @@ const AdminDashboard = () => {
     axios.get(`http://localhost:8000/api/people`, { withCredentials: true })
       .then(res => setCharacters(res.data))
       .catch(err => navigate('/login'))
-  }, [])
+  })
 
   const logoutHandler = () => {
     axios.get(`http://localhost:8000/api/logout`, { withCredentials: true })

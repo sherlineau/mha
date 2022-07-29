@@ -11,7 +11,7 @@ const CharacterSchema = new mongoose.Schema({
     bloodtype: String,
     birthplace: String,
     personality: String,
-    ultimateMoves: String,
+    ultimateMoves: [String],
     image: String,
     description: String
 })
